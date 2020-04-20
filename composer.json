@@ -1,0 +1,23 @@
+{
+    "name": "biowolf/sso-auth-server",
+    "description": "A PHP-based SSO auth server",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "BioWolf",
+            "email": "contact.biowolf@gmx.fr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "league/route": "^4.3",
+        "laminas/laminas-diactoros": "^2.2",
+        "laminas/laminas-httphandlerrunner": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}
