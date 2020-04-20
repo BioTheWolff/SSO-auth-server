@@ -13,7 +13,8 @@
     "require": {
         "league/route": "^4.3",
         "laminas/laminas-diactoros": "^2.2",
-        "laminas/laminas-httphandlerrunner": "^1.1"
+        "laminas/laminas-httphandlerrunner": "^1.1",
+        "league/plates": "^3.3"
     },
     "autoload": {
         "psr-4": {
