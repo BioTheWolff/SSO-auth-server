@@ -8,6 +8,10 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Laminas\Diactoros\Response\RedirectResponse;
 
+/**
+ * This middleware protects the whole site with a login requirement.
+ * 
+ */
 class AuthMiddleware implements MiddlewareInterface
 {
     /**

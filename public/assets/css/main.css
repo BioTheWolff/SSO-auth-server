@@ -16,12 +16,12 @@ header.navbar img {
   height: 5vh;
 }
 
-div.login {
+div.login, div.http-error {
   background: #171717;
   padding: 3vh;
   border-radius: 0.5rem;
 }
-div.login .form-input {
+div.login .form-input, div.http-error .form-input {
   margin-bottom: 1rem;
 }
 

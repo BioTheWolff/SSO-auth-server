@@ -13,7 +13,11 @@ $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
 
 $router = new League\Route\Router;
 
-// Auth middleware
+// Strategy
+$strategy = new App\Strategies\FancyStrategy;
+$router->setStrategy($strategy);
+
+// Middleware
 $router->middleware(new App\Middleware\AuthMiddleware);
 
 // Normal connection route

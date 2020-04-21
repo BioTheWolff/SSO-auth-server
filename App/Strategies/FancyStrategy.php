@@ -4,11 +4,16 @@ namespace App\Strategies;
 
 use League\Route\Http\Exception\{MethodNotAllowedException, NotFoundException};
 use League\Route\Route;
+use League\Route\Strategy\AbstractStrategy;
 use League\Route\{ContainerAwareInterface, ContainerAwareTrait};
 use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
 use Psr\Http\Server\{MiddlewareInterface, RequestHandlerInterface};
 use Throwable;
 
+
+/**
+ * This strategy aims to provide smooth error handling by displaying an appropriate response to the end user.
+ */
 class FancyStrategy extends AbstractStrategy implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
@@ -31,7 +36,7 @@ class FancyStrategy extends AbstractStrategy implements ContainerAwareInterface
      */
     public function getNotFoundDecorator(NotFoundException $exception): MiddlewareInterface
     {
-        return $this->throwThrowableMiddleware($exception);
+        return $this->returnFancyErrorMiddleware(404, '404 Not Found');
     }
 
     /**
@@ -39,29 +44,36 @@ class FancyStrategy extends AbstractStrategy implements ContainerAwareInterface
      */
     public function getMethodNotAllowedDecorator(MethodNotAllowedException $exception): MiddlewareInterface
     {
-        return $this->throwThrowableMiddleware($exception);
+        return $this->returnFancyErrorMiddleware(405, '405 Method Not Allowed');
     }
 
     /**
      * Return a middleware that simply throws an error
      *
-     * @param \Throwable $error
-     *
      * @return \Psr\Http\Server\MiddlewareInterface
      */
-    protected function throwThrowableMiddleware(Throwable $error): MiddlewareInterface
+    protected function returnFancyErrorMiddleware(Int $code, String $title): MiddlewareInterface
     {
-        return new class($error) implements MiddlewareInterface
+        return new class($code, $title) implements MiddlewareInterface
         {
-            protected $error;
+            protected $code;
+            protected $title;
 
-            public function __construct(Throwable $error)
+            public function __construct(Int $code, String $title)
             {
-                $this->error = $error;
+                $this->code = $code;
+                $this->title = $title;
             }
 
             public function process(ServerRequestInterface $request, RequestHandlerInterface $requestHandler) : ResponseInterface {
-                throw $this->error;
+                $templates = new \League\Plates\Engine(dirname(__DIR__) . '/../templates/');
+
+                $response = new \Laminas\Diactoros\Response\HtmlResponse(
+                    $templates->render('http_error', ['title' => $this->title]),
+                    $this->code
+                );
+
+                return $response;
             }
         };
     }
