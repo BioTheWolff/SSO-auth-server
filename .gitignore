@@ -1,5 +1,6 @@
 composer.phar
 /vendor/
+/node_modules/
 
 # config
 /includes/config.php
