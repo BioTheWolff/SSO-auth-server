@@ -1,0 +1,17 @@
+body {
+  background: url("/assets/img/background.jpg") #131313 center/cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+header.navbar {
+  padding: 0 2vw;
+  height: 10vh;
+  background: #171717;
+}
+header.navbar img {
+  width: 5vh;
+  height: 5vh;
+}
+
+/*# sourceMappingURL=main.css.map */
