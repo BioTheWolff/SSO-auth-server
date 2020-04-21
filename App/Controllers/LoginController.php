@@ -5,15 +5,19 @@ namespace App\Controllers;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class MainController {
+class LoginController {
 
-    public function getProfile(ServerRequestInterface $request) : ResponseInterface {
-        $response = new \Laminas\Diactoros\Response;
-        $response->getBody()->write('<h1>Hello, World!</h1>');
+    public function renderLoginForm(ServerRequestInterface $request) : ResponseInterface {
+        $templates = new \League\Plates\Engine(dirname(__DIR__) . '/../templates/');
+
+        $response = new \Laminas\Diactoros\Response\HtmlResponse(
+            $templates->render('login'),
+            200
+        );
         return $response;
     }
 
-    public function test(ServerRequestInterface $request) : ResponseInterface {
+    public function verifyLogin(ServerRequestInterface $request) : ResponseInterface {
         $templates = new \League\Plates\Engine(dirname(__DIR__) . '/../templates/');
 
         $response = new \Laminas\Diactoros\Response\HtmlResponse(

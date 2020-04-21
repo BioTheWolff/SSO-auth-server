@@ -1,3 +1,5 @@
+$front-grey-color: #171717
+    
 body
     background: url('/assets/img/background.jpg') #131313 center/cover
     width: 100vw
@@ -5,8 +7,19 @@ body
 
 header.navbar
     padding: 0 2vw
+    margin-bottom: 12vh
+
     height: 10vh
-    background: #171717
+    background: $front-grey-color
     img
         width:5vh
         height: 5vh
+
+
+// LOGIN
+div.login
+    background: $front-grey-color
+    padding: 3vh
+
+    .form-input
+        margin-bottom: 1rem

@@ -6,12 +6,21 @@ body {
 
 header.navbar {
   padding: 0 2vw;
+  margin-bottom: 12vh;
   height: 10vh;
   background: #171717;
 }
 header.navbar img {
   width: 5vh;
   height: 5vh;
+}
+
+div.login {
+  background: #171717;
+  padding: 3vh;
+}
+div.login .form-input {
+  margin-bottom: 1rem;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -23,7 +23,8 @@ $router->map('GET', '/', 'App\Controllers\MainController::getProfile');
 $router->map('GET', '/redirect', 'App\Controllers\RedirectController::handle');
 
 // Login routes
-$router->map('GET', '/login', 'App\Controllers\MainController::test');
+$router->map('GET', '/login', 'App\Controllers\LoginController::renderLoginForm');
+$router->map('POST', '/login', 'App\Controllers\LoginController::verifyLogin');
 
 
 /**
