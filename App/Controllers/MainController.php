@@ -4,23 +4,27 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Laminas\Diactoros\Response\RedirectResponse;
 
 class MainController {
 
-    public function getProfile(ServerRequestInterface $request) : ResponseInterface {
-        $response = new \Laminas\Diactoros\Response;
-        $response->getBody()->write('<h1>Hello, World!</h1>');
-        return $response;
-    }
-
-    public function test(ServerRequestInterface $request) : ResponseInterface {
+    private function render_profile_page() {
         $templates = new \League\Plates\Engine(dirname(__DIR__) . '/../templates/');
 
         $response = new \Laminas\Diactoros\Response\HtmlResponse(
-            $templates->render('profile', ['name' => 'Jonathan']), // html view
-            200 // status code
+            $templates->render('profile', ['username' => \App\Session::get_user_value('username')]),
+            200
         );
         return $response;
+    }
+
+
+    public function redirectToProfile(ServerRequestInterface $request) : ResponseInterface {
+        return new RedirectResponse('/profile');
+    }
+
+    public function getProfile(ServerRequestInterface $request) : ResponseInterface {
+        return self::render_profile_page();
     }
 
 }

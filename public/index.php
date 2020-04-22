@@ -20,15 +20,19 @@ $router->setStrategy($strategy);
 // Middleware
 $router->middleware(new App\Middleware\AuthMiddleware);
 
-// Normal connection route
-$router->map('GET', '/', 'App\Controllers\MainController::getProfile');
+// Profile
+$router->map('GET', '/', 'App\Controllers\MainController::redirectToProfile');
+$router->map('GET', '/profile', 'App\Controllers\MainController::getProfile');
 
-// redirect to site
+// Connection then redirection
 $router->map('GET', '/redirect', 'App\Controllers\RedirectController::handle');
 
 // Login routes
 $router->map('GET', '/login', 'App\Controllers\LoginController::renderLoginForm');
 $router->map('POST', '/login', 'App\Controllers\LoginController::verifyLogin');
+
+// Log out route
+$router->map('GET', '/logout', 'App\Controllers\LoginController::logout');
 
 
 /**

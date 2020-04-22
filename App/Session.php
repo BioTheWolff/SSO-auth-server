@@ -44,5 +44,15 @@ class Session {
     public static function is_connected(): bool {
         return isset($_SESSION['__user']);
     }
+
+    public static function get_user_value($key) {
+        if (!self::is_connected()) return;
+
+        return isset($_SESSION['__user'][$key]) ? $_SESSION['__user'][$key] : null;
+    }
+
+    public static function disconnect() {
+        unset($_SESSION['__user']);
+    }
 }
 

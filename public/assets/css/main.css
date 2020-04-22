@@ -21,7 +21,7 @@ div.login, div.http-error {
   padding: 3vh;
   border-radius: 0.5rem;
 }
-div.login .form-input, div.http-error .form-input {
+div.login .form-input, div.login .display-error, div.http-error .form-input, div.http-error .display-error {
   margin-bottom: 1rem;
 }
 

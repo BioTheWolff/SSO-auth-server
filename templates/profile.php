@@ -1,4 +1,18 @@
 <?php $this->layout('template', ['title' => 'Profile']) ?>
 
-<h1>User Profile</h1>
-<p>Hello, <?=$this->e($name)?></p>
+<div class="columns">
+    <!-- Left third left empty -->
+    <div class="column col-3"></div>
+
+
+    <!-- Login cplumn -->
+    <div class="column col-9 profile">
+
+        <?= $this->e($username) ?>
+
+    </div>
+
+
+    <!-- Right third left empty -->
+    <div class="column col-3"></div>
+</div>

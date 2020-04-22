@@ -1,0 +1,31 @@
+body {
+  color: #cdc9c2;
+}
+
+.btn.btn-link {
+  background-color: transparent;
+  color: #91bce6;
+}
+
+.btn:not(.btn-link), .btn:not(.btn-link):visited {
+  color: #91bce6;
+  border-color: #232192;
+  background-color: transparent;
+  transition: border-radius ease-in-out 0.2s;
+  transition: background-color ease-in-out 0.2s;
+}
+
+.btn:not(.btn-link):hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #91b0e6;
+  border-radius: 8px;
+  transition: border-radius ease-in-out 0.2s;
+  transition: background-color ease-in-out 0.2s;
+}
+
+.form-input {
+  background-color: #181a1b;
+  border-color: #575757;
+}
+
+/*# sourceMappingURL=spectre_adjustments.css.map */
