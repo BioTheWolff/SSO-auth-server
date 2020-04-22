@@ -76,4 +76,17 @@ class Database {
             ]);
         return $q->rowCount() > 0;
     }
+
+    public static function updateUserPassword(int $id, String $password): bool {
+        $db = self::getInstance();
+
+        $hash = \password_hash($password, PASSWORD_DEFAULT);
+
+        $q = $db->prepare('UPDATE accounts SET password = ? WHERE id = ?');
+        $q->execute([
+            $hash,
+            $id
+            ]);
+        return $q->rowCount() > 0;
+    }
 }

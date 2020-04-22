@@ -1,4 +1,4 @@
-<?php $this->layout('template', ['title' => 'Profile']) ?>
+<?php $this->layout('template', ['title' => 'Edit profile']) ?>
 
 <div class="columns">
     <!-- Left third left empty -->

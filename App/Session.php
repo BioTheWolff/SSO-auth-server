@@ -60,6 +60,16 @@ class Session {
         );
     }
 
+    public static function db_result_for_user_details() {
+        if (!self::is_connected()) return null;
+
+        return Database::getUserFromFull(
+            self::get_user_value('id'),
+            self::get_user_value('email'),
+            self::get_user_value('username')
+        );
+    }
+
     public static function disconnect() {
         unset($_SESSION['__user']);
     }

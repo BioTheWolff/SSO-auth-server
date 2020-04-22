@@ -13,5 +13,6 @@ define('INVALID_EMAIL', 'Invalid email.');
 define('INVALID_USERNAME', 'Usernames can only contain letters (a-z and A-Z), figures (0-9), dots (.), dashes (-) or underscores (_)');
 
 define('ERROR_PASSWORD', 'Incorrect password.');
+define('NEW_PASSWORDS_DONT_MATCH', 'New passwords do not match. Please retry');
 
 App\Session::init();

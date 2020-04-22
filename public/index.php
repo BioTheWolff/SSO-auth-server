@@ -29,7 +29,8 @@ $router->group('/profile', function (\League\Route\RouteGroup $route) {
     $route->map('GET', '/edit', 'App\Controllers\ProfileController::editProfile');
     $route->map('POST', '/edit', 'App\Controllers\ProfileController::handleEditProfile');
 
-    $route->map('GET', '/password', 'AcmeController::actionTwo');
+    $route->map('GET', '/password', 'App\Controllers\ProfileController::changePassword');
+    $route->map('POST', '/password', 'App\Controllers\ProfileController::handleChangePassword');
 });
 
 // Connection then redirection
