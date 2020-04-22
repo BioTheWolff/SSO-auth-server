@@ -16,13 +16,40 @@ header.navbar img {
   height: 5vh;
 }
 
-div.login, div.http-error {
+.flash {
+  position: absolute;
+  top: 12vh;
+  left: 30vw;
+  height: 8vh;
+  width: 40vw;
+  border-radius: 15px;
+}
+.flash p {
+  line-height: 8vh;
+}
+
+div.login, div.http-error, div.profile {
   background: #171717;
   padding: 3vh;
   border-radius: 0.5rem;
 }
-div.login .form-input, div.login .display-error, div.http-error .form-input, div.http-error .display-error {
+div.login .form-input, div.login .display-error, div.http-error .form-input, div.http-error .display-error, div.profile .form-input, div.profile .display-error {
   margin-bottom: 1rem;
+}
+
+div.profile .title {
+  margin-bottom: 4vh;
+}
+div.profile table.headless {
+  margin-bottom: 4vh;
+}
+div.profile a.btn {
+  margin-left: 2vh;
+}
+div.profile .back {
+  position: relative;
+  left: 1vh;
+  top: 1vh;
 }
 
 /*# sourceMappingURL=main.css.map */

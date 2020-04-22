@@ -5,6 +5,7 @@ body
     width: 100vw
     height: 100vh
 
+// NAVBAR
 header.navbar
     padding: 0 2vw
     margin-bottom: 12vh
@@ -17,12 +18,42 @@ header.navbar
         width:5vh
         height: 5vh
 
+// FLASH MESSAGE
+.flash
+    position: absolute
+    top: 12vh
+    left: 30vw
+
+    height: 8vh
+    width: 40vw
+
+    border-radius: 15px
+
+    p
+        line-height: 8vh
+
 
 // LOGIN
-div.login, div.http-error
+div.login, div.http-error, div.profile
     background: $front-grey-color
     padding: 3vh
     border-radius: 0.5rem
 
     .form-input, .display-error
         margin-bottom: 1rem
+
+// PROFILE PAGE
+div.profile
+    .title
+        margin-bottom: 4vh
+
+    table.headless
+        margin-bottom: 4vh
+
+    a.btn
+        margin-left: 2vh
+
+    .back
+        position: relative
+        left: 1vh
+        top: 1vh

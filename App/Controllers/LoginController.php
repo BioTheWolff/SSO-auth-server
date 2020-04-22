@@ -42,25 +42,21 @@ class LoginController {
 
         if ($query === false) {
             // Query returned false, there was an error during database communication
-            return self::render_login_page('An error occurred during database communication. If the problem reoccurs, please try again later');
+            return self::render_login_page(ERROR_DATABASE);
         }
 
         if (empty($query)) {
             // Query returned empty array, no matching email in database
-            return self::render_login_page('Email or password incorrect');
+            return self::render_login_page(ERROR_CREDENTIALS);
         }
 
         if (!\password_verify($form['pass'], $query->password)) {
             // Given password and hash stored in database don't match
-            return self::render_login_page('Email or password incorrect');
+            return self::render_login_page(ERROR_CREDENTIALS);
         }
         
         // Everything went well, we register the session and log the user in
-        $_SESSION['__user'] = array(
-            'id' => $query->id,
-            'email' => $query->email,
-            'username' => $query->username
-        );
+        \App\Session::populate_user_session($query->id, $query->username, $query->email);
 
         return new RedirectResponse('/profile');
     }

@@ -21,8 +21,16 @@ $router->setStrategy($strategy);
 $router->middleware(new App\Middleware\AuthMiddleware);
 
 // Profile
-$router->map('GET', '/', 'App\Controllers\MainController::redirectToProfile');
-$router->map('GET', '/profile', 'App\Controllers\MainController::getProfile');
+$router->map('GET', '/', 'App\Controllers\ProfileController::redirectToProfile');
+$router->map('GET', '/profile', 'App\Controllers\ProfileController::getProfile');
+
+$router->group('/profile', function (\League\Route\RouteGroup $route) {
+    // Edit profile
+    $route->map('GET', '/edit', 'App\Controllers\ProfileController::editProfile');
+    $route->map('POST', '/edit', 'App\Controllers\ProfileController::handleEditProfile');
+
+    $route->map('GET', '/password', 'AcmeController::actionTwo');
+});
 
 // Connection then redirection
 $router->map('GET', '/redirect', 'App\Controllers\RedirectController::handle');

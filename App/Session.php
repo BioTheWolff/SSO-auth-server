@@ -41,6 +41,7 @@ class Session {
         self::flash('__message', ['type' => $type, 'message' => $message]);
     }
     
+    // SESSION USER
     public static function is_connected(): bool {
         return isset($_SESSION['__user']);
     }
@@ -49,6 +50,14 @@ class Session {
         if (!self::is_connected()) return;
 
         return isset($_SESSION['__user'][$key]) ? $_SESSION['__user'][$key] : null;
+    }
+
+    public static function populate_user_session($id, $username, $email) {
+        $_SESSION['__user'] = array(
+            'id' => $id,
+            'email' => $email,
+            'username' => $username
+        );
     }
 
     public static function disconnect() {

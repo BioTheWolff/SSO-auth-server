@@ -7,7 +7,7 @@ body {
   color: #91bce6;
 }
 
-.btn:not(.btn-link), .btn:not(.btn-link):visited {
+.btn:not(.btn-link):not(.btn-primary), .btn:not(.btn-link):not(.btn-primary):visited {
   color: #91bce6;
   border-color: #232192;
   background-color: transparent;
@@ -15,7 +15,7 @@ body {
   transition: background-color ease-in-out 0.2s;
 }
 
-.btn:not(.btn-link):hover {
+.btn:not(.btn-link):not(.btn-primary):hover {
   background-color: rgba(0, 0, 0, 0.2);
   color: #91b0e6;
   border-radius: 8px;
@@ -23,9 +23,23 @@ body {
   transition: background-color ease-in-out 0.2s;
 }
 
+.btn.btn-primary {
+  background-color: #232192;
+  border-color: #232192;
+}
+
 .form-input {
   background-color: #181a1b;
   border-color: #575757;
+  color: #d2d2d2;
+}
+
+.form-input:not(:placeholder-shown):focus, .form-input:not(:placeholder-shown):invalid:focus {
+  background-color: #111213;
+}
+
+table.table.headless tr:last-child td {
+  border-bottom: none;
 }
 
 /*# sourceMappingURL=spectre_adjustments.css.map */
