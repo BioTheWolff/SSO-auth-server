@@ -38,7 +38,7 @@ class LoginController {
         }
 
         // Database query
-        $query = \App\Database::getUserWithEmail($form['email']);
+        $query = \App\Database::getUserWithEither($form['email']);
 
         if ($query === false) {
             // Query returned false, there was an error during database communication

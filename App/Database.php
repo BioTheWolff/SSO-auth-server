@@ -48,6 +48,16 @@ class Database {
         return $q->fetch();
     }
 
+    public static function getUserWithEither(String $eval) {
+        $db = self::getInstance();
+
+        $eval = \htmlspecialchars($eval);
+
+        $q = $db->prepare('SELECT * FROM accounts WHERE username = ? OR email = ?');
+        $q->execute([$eval, $eval]);
+        return $q->fetch();
+    }
+
     public static function getUserFromFull(Int $id, String $email, String $username) {
         $db = self::getInstance();
 
