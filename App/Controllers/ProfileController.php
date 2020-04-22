@@ -58,6 +58,9 @@ class ProfileController {
         $id = \App\Session::get_user_value('id');
         $old_email = \App\Session::get_user_value('email');
         $old_username = \App\Session::get_user_value('username');
+
+        // valid pattern
+        $username_pattern = '/[^a-aA-Z0-9.\-_]/mi';
         
 
         /**
@@ -69,6 +72,9 @@ class ProfileController {
             if (!empty($is_email_available)) {
                 return self::render_profile_page(true, NOT_AVAILABLE_EMAIL);
             }
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                return self::render_profile_page(true, INVALID_EMAIL);
+            }
         }
 
         // we test username if it has changed
@@ -76,6 +82,9 @@ class ProfileController {
             $is_username_available = \App\Database::getUserWithUsername($username);
             if (!empty($is_username_available)) {
                 return self::render_profile_page(true, NOT_AVAILABLE_USERNAME);
+            }
+            if (preg_match($username_pattern, $username)) {
+                return self::render_profile_page(true, INVALID_USERNAME);
             }
         }
 
