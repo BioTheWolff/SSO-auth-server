@@ -6,7 +6,7 @@ body {
 
 header.navbar {
   padding: 0 2vw;
-  margin-bottom: 12vh;
+  margin-bottom: 14vh;
   height: 10vh;
   background: #171717;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -20,12 +20,10 @@ header.navbar img {
   position: absolute;
   top: 12vh;
   left: 30vw;
-  height: 8vh;
+  padding-top: 1vh;
+  height: 10vh;
   width: 40vw;
   border-radius: 15px;
-}
-.flash p {
-  line-height: 8vh;
 }
 
 div.login, div.http-error, div.profile {
