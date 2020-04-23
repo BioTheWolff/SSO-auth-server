@@ -33,8 +33,9 @@ $router->group('/profile', function (\League\Route\RouteGroup $route) {
     $route->map('POST', '/password', 'App\Controllers\ProfileController::handleChangePassword');
 });
 
-// Connection then redirection
-$router->map('GET', '/redirect', 'App\Controllers\RedirectController::handle');
+// SSO
+$router->map('GET', '/sso/pubkey', 'App\Controllers\SSOController::givePubkey');
+$router->map('GET', '/sso/redirect', 'App\Controllers\SSOController::handleRedirect');
 
 // Login routes
 $router->map('GET', '/login', 'App\Controllers\LoginController::renderLoginForm');

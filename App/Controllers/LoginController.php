@@ -11,10 +11,9 @@ use Laminas\Diactoros\Response\RedirectResponse;
 class LoginController {
 
     private function render_login_page($error = '') {
-        $templates = new \League\Plates\Engine(dirname(__DIR__) . '/../templates/');
 
         $response = new \Laminas\Diactoros\Response\HtmlResponse(
-            $templates->render('login', ['error' => $error]),
+            \give_render('login', ['error' => $error]),
             200
         );
         return $response;

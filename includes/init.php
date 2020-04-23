@@ -2,6 +2,7 @@
 define('ROOT', dirname(__DIR__) . '/');
 require_once(ROOT . 'vendor/autoload.php');
 require_once('config.php');
+require_once('functions.php');
 
 define('ERROR_DATABASE', 'An error occurred during database communication. If the problem reoccurs, please try again later.');
 define('ERROR_CREDENTIALS', 'Incorrect email or password.');

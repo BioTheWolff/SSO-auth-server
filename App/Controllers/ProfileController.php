@@ -9,14 +9,13 @@ use Laminas\Diactoros\Response\RedirectResponse;
 class ProfileController {
 
     private function render_profile_page(bool $is_edit, bool $is_pass_change = false, string $error = '') {
-        $templates = new \League\Plates\Engine(dirname(__DIR__) . '/../templates/');
 
         if ($is_edit && $is_pass_change) $display_path = 'profile/change_password';
         else if ($is_edit && !$is_pass_change) $display_path = 'profile/edit';
         else $display_path = 'profile/display';
 
         $response = new \Laminas\Diactoros\Response\HtmlResponse(
-            $templates->render($display_path, [
+            \give_render($display_path, [
                 'username' => \App\Session::get_user_value('username'),
                 'email' => \App\Session::get_user_value('email'),
                 'error' => $error

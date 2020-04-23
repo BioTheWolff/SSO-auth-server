@@ -19,27 +19,29 @@ class AuthMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        // get query params
-        $query = $request->getQueryParams();
 
-        // if params are not empty, try to match /login
-        if (!empty($query)) {
-            $first = array_keys($query)[0];
-            $uri_matches = preg_match('/^\/login/', $first);
-        } else {
-            $uri_matches = false;
-        }
-
+        $uri = $request->getUri();
         /**
          * If the user is connection ($_SESSION['__user'] is not null)
-         * or if the URI starts by /login (the user wants to login)
+         * or if the URI path is considered public (see array)
          */
+        $public_paths = array('/login', '/sso/pubkey');
 
-        if(\App\Session::is_connected() || $uri_matches !== false) {
+        if(\App\Session::is_connected() || \in_array($uri->getPath(), $public_paths)) {
             return $handler->handle($request);
         }
 
-        // If neither of above is true, we redirect the user to the login page (which will be handled because of the uri_matches above)
-        return new RedirectResponse('/login');
+        // compile the uri and put it in parameters
+        if ($uri->getQuery() == '') {
+            $params = '';
+        } else if (strpos($uri->getQuery(), '?') !== false) {
+            $arr = \explode("?", $uri->getQuery());
+            $params = '?redirect=' . \implode("&", $arr);
+        } else {
+            $params = '?redirect=' . $uri->getQuery();
+        }
+
+        // If neither of above is true, we redirect the user to the login page (which will be handled above)
+        return new RedirectResponse('/login' . $params);
     }
 }
