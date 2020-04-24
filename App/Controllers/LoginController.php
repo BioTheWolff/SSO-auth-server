@@ -68,59 +68,17 @@ class LoginController {
     }
 
     private function delegate_handle_uri_params($query) {
-        try {
-            // if query doesn't parameters
-            if (\strpos($query, '?') === false) {
-                $uri = '/profile';
-                $params = '';
 
-            // if query has parameters
-            } else {
-                [$e, $p] = explode('?', $query);
+        [$res, $had_to_fallback] = \reconstruct_path_from_redirect_param($query, '/profile', true);
 
-                // if we have more than one parameter (at least one & is present)
-                if (\strpos($p, '&') !== false) {
-                    $p_arr = explode('&', $p);
+        if ($had_to_fallback) \App\Session::flash_message(
+            'error', 
+            "The redirect query could not be successfully processed. You were redirected to your profile instead.<br>
+            Query: $query"
+        );
 
-                    $save = false;
-                    foreach ($p_arr as $par) {
-                        // we loop through the code to check if a parameter has "redirect" as key
-                        [$k, $v] = explode("=", $par);
-                        if ($k == 'redirect') {
-                            $save = true;
-                            $uri = $v;
-                            // the params will be reconstructed after we get out of the loop
+        return new RedirectResponse($res);
 
-                            // we unset the redirect value to be sure it is not reconstructed into the parameters
-                            $key = \array_search($par, $p_arr);
-                            unset($p_arr[$key]);
-                            
-                            break;
-                        }
-                    }
-                    // throw error if no redirect parameter has been found
-                    if (!$save) throw new \Exception("No redirect parameter but other parameters provided", 1);
-
-                    // params reconstruction
-                    $params = implode("&", $p_arr);
-                    
-                } else {
-                    [$k, $v] = explode("=", $p);
-
-                    if ($k != 'redirect') throw new \Exception("Only parameter is not the redirect parameter", 1);
-
-                    $uri = $v;
-                    $params = '';
-                }
-            }
-
-            return new RedirectResponse($uri . '?' . $params);
-        } catch (\Exception $e) {
-            \App\Session::flash_message('error', 'An error happened during URI parsing to redirect upon logging in.
-                                                    <br> Error: ' . $e->getMessage() . '<br>
-                                                    For URI query: ' . $query);
-            return new RedirectResponse('/profile');
-        }
     }
 
 }

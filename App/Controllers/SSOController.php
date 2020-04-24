@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Laminas\Diactoros\Response\TextResponse;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Firebase\JWT\JWT;
 
 class SSOController {
 
@@ -16,9 +17,9 @@ class SSOController {
     public function handleRedirect(ServerRequestInterface $request) : ResponseInterface {
         $query = $request->getUri()->getQuery();
 
-        if (\strpos($query, '?') === false) {
-            return new HtmlResponse(\give_render('sso/fail_no_url'), 400);
-        }
+        $res = \look_up_param($query, "url");
+        if ($res === null) return new HtmlResponse(\give_render('sso/fail_no_url'), 400);
+        
 
         $response = new Response;
         $response->getBody()->write('<h1>Test !</h1>');
