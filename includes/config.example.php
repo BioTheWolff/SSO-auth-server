@@ -7,3 +7,5 @@ define('DATABASE_PASSWORD', '');
 
 define('ECDSA_PUBKEY', '');
 define('ECDSA_PVTKEY', '');
+
+define('AUTH_SERVER_HOSTNAME', '');

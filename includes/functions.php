@@ -32,7 +32,7 @@ function look_up_param(String $query, String $param, $fallback = null) {
                 if (!$save) throw new \Exception;
             
             } else {
-                [$key, $value] = explode("=", $p);
+                [$key, $value] = explode("=", $parameters);
 
                 // redirect to fallback
                 if ($key != $param) throw new \Exception;
@@ -47,6 +47,9 @@ function look_up_param(String $query, String $param, $fallback = null) {
 }
 
 function reconstruct_path_from_redirect_param($query, String $fallback_path, bool $no_params_on_fallback = false) : array {
+
+    // if there are no params
+    if (\strpos($query, '?') === false) return [$fallback_path, false];
 
     $res = look_up_param($query, "redirect");
 

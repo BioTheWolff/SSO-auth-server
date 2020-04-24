@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Laminas\Diactoros\Response\TextResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Firebase\JWT\JWT;
 
@@ -21,9 +21,18 @@ class SSOController {
         if ($res === null) return new HtmlResponse(\give_render('sso/fail_no_url'), 400);
         
 
-        $response = new Response;
-        $response->getBody()->write('<h1>Test !</h1>');
-        return $response;
+        $payload = array(
+            "iss" => AUTH_SERVER_HOSTNAME,
+            "aud" => $res,
+            "iat" => time(),
+            "uid" => \App\Session::get_user_value('id'),
+            "uname" => \App\Session::get_user_value('username'),
+            "mail" => \App\Session::get_user_value('email'),
+        );
+        
+        $jwt = JWT::encode($payload, ECDSA_PVTKEY, 'RS256');
+
+        return new RedirectResponse('http://' . $res, 302, ['Authorization' => "Bearer $jwt"]);
     }
 
 }
