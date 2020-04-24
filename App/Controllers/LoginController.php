@@ -105,7 +105,7 @@ class LoginController {
                     $params = implode("&", $p_arr);
                     
                 } else {
-                    [$k, $v] = explode($par, "=");
+                    [$k, $v] = explode("=", $p);
 
                     if ($k != 'redirect') throw new \Exception("Only parameter is not the redirect parameter", 1);
 
