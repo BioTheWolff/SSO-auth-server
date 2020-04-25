@@ -5,7 +5,7 @@ define('DATABASE_DATABASE', '');
 define('DATABASE_USERNAME', '');
 define('DATABASE_PASSWORD', '');
 
-define('ECDSA_PUBKEY', '');
-define('ECDSA_PVTKEY', '');
+define('PUBLIC_KEY', '');
+define('PRIVATE_KEY', '');
 
 define('AUTH_SERVER_HOSTNAME', '');

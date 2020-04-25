@@ -11,7 +11,7 @@ use Firebase\JWT\JWT;
 class SSOController {
 
     public function givePubkey(ServerRequestInterface $request) : ResponseInterface {
-        return new TextResponse(ECDSA_PUBKEY);
+        return new TextResponse(PUBLIC_KEY);
     }
 
     public function handleRedirect(ServerRequestInterface $request) : ResponseInterface {
@@ -26,13 +26,13 @@ class SSOController {
             "aud" => $res,
             "iat" => time(),
             "uid" => \App\Session::get_user_value('id'),
-            "uname" => \App\Session::get_user_value('username'),
-            "mail" => \App\Session::get_user_value('email'),
+            "username" => \App\Session::get_user_value('username'),
+            "email" => \App\Session::get_user_value('email'),
         );
         
-        $jwt = JWT::encode($payload, ECDSA_PVTKEY, 'RS256');
+        $jwt = JWT::encode($payload, PRIVATE_KEY, 'RS256');
 
-        return new RedirectResponse('http://' . $res, 302, ['Authorization' => "Bearer $jwt"]);
+        return new RedirectResponse('http://' . $res . "?token=$jwt");
     }
 
 }
