@@ -11,3 +11,12 @@ define('INVALID_USERNAME', 'Usernames can only contain letters (a-z and A-Z), fi
 
 define('ERROR_PASSWORD', 'Incorrect password.');
 define('NEW_PASSWORDS_DONT_MATCH', 'New passwords do not match. Please retry');
+
+// ROUTES
+
+define('USER_LOGIN', '/user/login');
+define('USER_LOGOUT', '/user/logout');
+define('USER_PROFILE', '/user/profile');
+
+define('SSO_AUTH', '/auth');
+define('SSO_PUBKEY', '/pubkey');

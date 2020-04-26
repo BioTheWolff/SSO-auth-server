@@ -23,7 +23,7 @@
         <a href="https://github.com/BioTheWolff/SSO-auth-server" target="_blank" class="btn btn-link">GitHub project</a>
 
         <?php if (\App\Session::is_connected()): ?>
-            <a href="/logout" class="btn">Log out</a>
+            <a href="<?= USER_LOGOUT ?>" class="btn">Log out</a>
         <?php endif; ?>
     </section>
 </header>

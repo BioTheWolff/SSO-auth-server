@@ -22,9 +22,9 @@ $router->middleware(new App\Middleware\AuthMiddleware);
 
 // Profile
 $router->map('GET', '/', 'App\Controllers\ProfileController::redirectToProfile');
-$router->map('GET', '/profile', 'App\Controllers\ProfileController::getProfile');
+$router->map('GET', USER_PROFILE, 'App\Controllers\ProfileController::getProfile');
 
-$router->group('/profile', function (\League\Route\RouteGroup $route) {
+$router->group(USER_PROFILE, function (\League\Route\RouteGroup $route) {
     // Edit profile
     $route->map('GET', '/edit', 'App\Controllers\ProfileController::editProfile');
     $route->map('POST', '/edit', 'App\Controllers\ProfileController::handleEditProfile');
@@ -34,15 +34,15 @@ $router->group('/profile', function (\League\Route\RouteGroup $route) {
 });
 
 // SSO
-$router->map('GET', '/sso/pubkey', 'App\Controllers\SSOController::givePubkey');
-$router->map('GET', '/sso/redirect', 'App\Controllers\SSOController::handleRedirect');
+$router->map('GET', SSO_PUBKEY, 'App\Controllers\SSOController::givePubkey');
+$router->map('GET', SSO_AUTH, 'App\Controllers\SSOController::handleRedirect');
 
 // Login routes
-$router->map('GET', '/login', 'App\Controllers\LoginController::renderLoginForm');
-$router->map('POST', '/login', 'App\Controllers\LoginController::verifyLogin');
+$router->map('GET', USER_LOGIN, 'App\Controllers\LoginController::renderLoginForm');
+$router->map('POST', USER_LOGIN, 'App\Controllers\LoginController::verifyLogin');
 
 // Log out route
-$router->map('GET', '/logout', 'App\Controllers\LoginController::logout');
+$router->map('GET', USER_LOGOUT, 'App\Controllers\LoginController::logout');
 
 
 /**

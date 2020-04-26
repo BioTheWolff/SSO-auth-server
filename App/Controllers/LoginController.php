@@ -25,7 +25,7 @@ class LoginController {
 
     public function logout(ServerRequestInterface $request) : ResponseInterface {
         \App\Session::disconnect();
-        return new RedirectResponse('/login');
+        return new RedirectResponse(USER_LOGIN);
     }
 
     public function verifyLogin(ServerRequestInterface $request) : ResponseInterface {
@@ -69,7 +69,7 @@ class LoginController {
 
     private function delegate_handle_uri_params($query) {
 
-        [$res, $had_to_fallback] = \reconstruct_path_from_redirect_param($query, '/profile', true);
+        [$res, $had_to_fallback] = \reconstruct_path_from_redirect_param($query, USER_PROFILE, true);
 
         if ($had_to_fallback) \App\Session::flash_message(
             'error', 

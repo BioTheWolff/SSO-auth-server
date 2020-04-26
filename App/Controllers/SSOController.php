@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\TextResponse;
 use Firebase\JWT\JWT;
 
 class SSOController {

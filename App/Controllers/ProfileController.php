@@ -27,7 +27,7 @@ class ProfileController {
 
 
     public function redirectToProfile(ServerRequestInterface $request) : ResponseInterface {
-        return new RedirectResponse('/profile');
+        return new RedirectResponse(USER_PROFILE);
     }
 
     /**
@@ -159,7 +159,7 @@ class ProfileController {
 
         // finalise
         \App\Session::flash_message('success', 'Password successfully updated!');
-        return new RedirectResponse('/profile');
+        return new RedirectResponse('/user/profile');
     }
 
 }

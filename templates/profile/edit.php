@@ -9,7 +9,7 @@
     <div class="column col-6 profile">
 
         
-        <a href="/profile" class="back"><i class="icon icon-2x icon-back"></i></a>
+        <a href="<?= USER_PROFILE ?>" class="back"><i class="icon icon-2x icon-back"></i></a>
         <h2 class="text-center title">Profile edition</h2>
 
         <form class="form-group" method="POST">

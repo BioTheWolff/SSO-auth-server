@@ -26,8 +26,8 @@
             </tbody>
         </table>
 
-        <a href="/profile/edit" class="btn">Edit profile</a>
-        <a href="/profile/password" class="btn">Change password</a>
+        <a href="<?= USER_PROFILE ?>/edit" class="btn">Edit profile</a>
+        <a href="<?= USER_PROFILE ?>/password" class="btn">Change password</a>
 
     </div>
 

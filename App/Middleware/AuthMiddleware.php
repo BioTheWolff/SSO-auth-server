@@ -25,7 +25,7 @@ class AuthMiddleware implements MiddlewareInterface
          * If the user is connection ($_SESSION['__user'] is not null)
          * or if the URI path is considered public (see array)
          */
-        $public_paths = array('/login', '/sso/pubkey');
+        $public_paths = array(USER_LOGIN, SSO_PUBKEY);
 
         if(\App\Session::is_connected() || \in_array($uri->getPath(), $public_paths)) {
             return $handler->handle($request);
@@ -42,6 +42,6 @@ class AuthMiddleware implements MiddlewareInterface
         }
 
         // If neither of above is true, we redirect the user to the login page (which will be handled above)
-        return new RedirectResponse('/login' . $params);
+        return new RedirectResponse(USER_LOGIN . $params);
     }
 }
