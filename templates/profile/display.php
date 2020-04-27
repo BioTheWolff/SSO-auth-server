@@ -5,7 +5,7 @@
     <div class="column col-3"></div>
 
 
-    <!-- Login cplumn -->
+    <!-- Profile display column -->
     <div class="column col-6 profile">
 
         <h2 class="text-center title">Profile</h2>

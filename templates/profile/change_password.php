@@ -5,7 +5,7 @@
     <div class="column col-3"></div>
 
 
-    <!-- Login cplumn -->
+    <!-- Password edition column -->
     <div class="column col-6 profile">
 
         

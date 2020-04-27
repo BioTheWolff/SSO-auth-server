@@ -19,9 +19,13 @@
         <img src="/assets/img/logo.png" alt="LOGO">
     </section>
     <section class="navbar-section">
-        <!-- This section can be left empty if you don't plan to put anything relevant here -->
+        <!-- Just my watermarks, don't forget to remove them -->
         <a href="https://github.com/BioTheWolff" target="_blank" class="btn btn-link">Made by Fabien "BioTheWolff" Z.</a>
         <a href="https://github.com/BioTheWolff/SSO-auth-server" target="_blank" class="btn btn-link">GitHub project</a>
+
+        <?php if (\App\Session::is_user_admin()): ?>
+            <a href="<?= ADMIN_PANEL ?>" class="btn">Admin panel</a>
+        <?php endif; ?>
 
         <?php if (\App\Session::is_connected()): ?>
             <a href="<?= USER_LOGOUT ?>" class="btn">Log out</a>
