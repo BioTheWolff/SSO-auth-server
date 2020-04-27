@@ -31,7 +31,7 @@ class AdminMiddleware implements MiddlewareInterface
 
         // If neither of above is true, we display a 403 error
         $response = new HtmlResponse(
-            \give_render('http_error', ['error' => '403 Unauthorized']),
+            \give_render('http_error', ['error' => '403 Forbidden']),
             403
         );
         return $response;

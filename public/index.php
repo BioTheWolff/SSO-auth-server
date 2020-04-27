@@ -20,7 +20,7 @@ $router->setStrategy($strategy);
 // Middleware
 $router->middleware(new App\Middleware\AuthMiddleware);
 
-// Profile
+// User profile
 $router->map('GET', '/', 'App\Controllers\ProfileController::redirectToProfile');
 $router->map('GET', USER_PROFILE, 'App\Controllers\ProfileController::getProfile');
 
@@ -37,12 +37,16 @@ $router->group(USER_PROFILE, function (\League\Route\RouteGroup $route) {
 $router->map('GET', SSO_PUBKEY, 'App\Controllers\SSOController::givePubkey');
 $router->map('GET', SSO_AUTH, 'App\Controllers\SSOController::handleRedirect');
 
-// Login routes
+// Log-in/out routes
 $router->map('GET', USER_LOGIN, 'App\Controllers\LoginController::renderLoginForm');
 $router->map('POST', USER_LOGIN, 'App\Controllers\LoginController::verifyLogin');
-
-// Log out route
 $router->map('GET', USER_LOGOUT, 'App\Controllers\LoginController::logout');
+
+// Admin panel
+$router->group(ADMIN_PART, function (\League\Route\RouteGroup $route) {
+    // Panel
+    $route->map('GET', '/panel', 'App\Controllers\AdminController::adminPanel');
+})->middleware(new App\Middleware\AdminMiddleware);
 
 
 /**

@@ -18,7 +18,7 @@ define('USER_LOGIN', '/user/login');
 define('USER_LOGOUT', '/user/logout');
 define('USER_PROFILE', '/user/profile');
 
-define('ADMIN_PANEL', '/admin/panel');
+define('ADMIN_PART', '/admin');
 
 define('SSO_AUTH', '/auth');
 define('SSO_PUBKEY', '/pubkey');

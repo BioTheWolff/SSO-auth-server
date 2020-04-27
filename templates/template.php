@@ -24,7 +24,7 @@
         <a href="https://github.com/BioTheWolff/SSO-auth-server" target="_blank" class="btn btn-link">GitHub project</a>
 
         <?php if (\App\Session::is_user_admin()): ?>
-            <a href="<?= ADMIN_PANEL ?>" class="btn">Admin panel</a>
+            <a href="<?= ADMIN_PART ?>/panel" class="btn">Admin panel</a>
         <?php endif; ?>
 
         <?php if (\App\Session::is_connected()): ?>
