@@ -26,6 +26,18 @@ class Database {
     }
 
     /**
+     * GET ALL USERS
+     */
+    public static function getAllUsersInfo() {
+        $db = self::getInstance();
+
+        $email = \htmlspecialchars($email);
+
+        $q = $db->query('SELECT username, email FROM accounts');
+        return $q->fetch();
+    }
+
+    /**
      * GET USER
      */
     public static function getUserWithEmail(String $email) {

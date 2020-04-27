@@ -52,11 +52,18 @@ class Session {
         return isset($_SESSION['__user'][$key]) ? $_SESSION['__user'][$key] : null;
     }
 
-    public static function populate_user_session($id, $username, $email) {
+    public static function is_user_admin(): bool {
+        if (!self::is_connected()) return false;
+
+        return self::get_user_value('admin');
+    }
+
+    public static function populate_user_session($id, $username, $email, $admin) {
         $_SESSION['__user'] = array(
             'id' => $id,
             'email' => $email,
-            'username' => $username
+            'username' => $username,
+            'admin' => $admin
         );
     }
 

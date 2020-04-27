@@ -41,7 +41,7 @@ class LoginController {
         if ($res !== null) return $res;
         
         // Everything went well, we register the session and log the user in
-        \App\Session::populate_user_session($query->id, $query->username, $query->email);
+        \App\Session::populate_user_session($query->id, $query->username, $query->email, $query->admin);
 
         return self::delegate_handle_uri_params($request->getUri()->getQuery());
     }
