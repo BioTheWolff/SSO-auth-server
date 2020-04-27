@@ -1,6 +1,7 @@
 <html>
   <head>
         <title>Auth server | <?=$this->e($title)?></title>
+        <link rel="shortcut icon" href="/assets/favicon.ico">
         <link rel="stylesheet" href="/assets/css/spectre.min.css">
         <link rel="stylesheet" href="/assets/css/spectre-icons.min.css">
         <link rel="stylesheet" href="/assets/css/main.css">
