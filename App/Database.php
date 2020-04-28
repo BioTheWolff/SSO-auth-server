@@ -16,7 +16,7 @@ class Database {
     
     private static function getInstance(): \PDO {
         if(!self::$database){
-            self::$database = new \PDO('pgsql:host=' . DATABASE_HOSTNAME . ';dbname=' . DATABASE_DATABASE, DATABASE_USERNAME, DATABASE_PASSWORD, [
+            self::$database = new \PDO(DATABASE_SYSTEM . ':host=' . DATABASE_HOSTNAME . ';dbname=' . DATABASE_DATABASE, DATABASE_USERNAME, DATABASE_PASSWORD, [
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ,
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
             ]);
@@ -31,7 +31,7 @@ class Database {
     public static function getAllUsersInfo() {
         $db = self::getInstance();
 
-        $q = $db->query('SELECT username, email FROM accounts');
+        $q = $db->query('SELECT username, email FROM ' . DATABASE_TABLE);
         return $q->fetchAll();
     }
 
@@ -43,7 +43,7 @@ class Database {
 
         $email = e($email);
 
-        $q = $db->prepare('SELECT * FROM accounts WHERE email = ?');
+        $q = $db->prepare('SELECT * FROM ' . DATABASE_TABLE . ' WHERE email = ?');
         $q->execute([$email]);
         return $q->fetch();
     }
@@ -53,7 +53,7 @@ class Database {
 
         $username = e($username);
 
-        $q = $db->prepare('SELECT * FROM accounts WHERE username = ?');
+        $q = $db->prepare('SELECT * FROM ' . DATABASE_TABLE . ' WHERE username = ?');
         $q->execute([$username]);
         return $q->fetch();
     }
@@ -63,7 +63,7 @@ class Database {
 
         $eval = e($eval);
 
-        $q = $db->prepare('SELECT * FROM accounts WHERE username = ? OR email = ?');
+        $q = $db->prepare('SELECT * FROM ' . DATABASE_TABLE . ' WHERE username = ? OR email = ?');
         $q->execute([$eval, $eval]);
         return $q->fetch();
     }
@@ -74,7 +74,7 @@ class Database {
         $email = e($email);
         $username = e($username);
 
-        $q = $db->prepare('SELECT * FROM accounts WHERE id = ? AND email = ? AND username = ?');
+        $q = $db->prepare('SELECT * FROM ' . DATABASE_TABLE . ' WHERE id = ? AND email = ? AND username = ?');
         $q->execute([$id, $email, $username]);
         return $q->fetch();
     }
@@ -88,7 +88,7 @@ class Database {
         $email = e($new_email);
         $username = e($new_username);
 
-        $q = $db->prepare('UPDATE accounts SET email = ?, username = ? WHERE id = ?');
+        $q = $db->prepare('UPDATE ' . DATABASE_TABLE . ' SET email = ?, username = ? WHERE id = ?');
         $q->execute([
             $email, 
             $username,
@@ -102,7 +102,7 @@ class Database {
 
         $hash = \password_hash($password, PASSWORD_DEFAULT);
 
-        $q = $db->prepare('UPDATE accounts SET password = ? WHERE id = ?');
+        $q = $db->prepare('UPDATE ' . DATABASE_TABLE . ' SET password = ? WHERE id = ?');
         $q->execute([
             $hash,
             $id
@@ -120,7 +120,7 @@ class Database {
         $username = e($username);
         $hash = \password_hash($password, PASSWORD_DEFAULT);
 
-        $q = $db->prepare('INSERT INTO accounts (email, username, password) VALUES (?, ?, ?)');
+        $q = $db->prepare('INSERT INTO ' . DATABASE_TABLE . ' (email, username, password) VALUES (?, ?, ?)');
         $q->execute([
             $email,
             $username,
