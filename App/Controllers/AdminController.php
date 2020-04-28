@@ -11,6 +11,10 @@ use Laminas\Diactoros\Response\RedirectResponse;
 
 class AdminController {
 
+    public function render_form(String $error = '') : HtmlResponse {
+        return new HtmlResponse(\give_render('admin/new_user', ['error' => $error]));
+    }
+
     public function adminPanel(ServerRequestInterface $request) : ResponseInterface {
         $query = \App\Database::getAllUsersInfo();
 
@@ -18,16 +22,16 @@ class AdminController {
     }
 
     public function newUser(ServerRequestInterface $request) : ResponseInterface {
-        return new HtmlResponse(\give_render('admin/new_user', ['error' => '']));
+        return self::render_form();
     }
 
     public function handleNewUser(ServerRequestInterface $request) : ResponseInterface {
         $form = $request->getParsedBody();
 
-        // Try to get the email and password from the form
-        if (empty($form['email']) || empty($form['username']) || empty($form['pass'])) {
-            return new HtmlResponse(\give_render('admin/new_user', ['error' => 'You must fill in all the fields']));
-        }
+        // Tests
+        $tests = self::delegate_verify($form['email'], $form['username'], $form['pass']);
+        if ($tests !== null) return $tests;
+        
 
         // Database insert
         $res = \App\Database::createUser($form['email'], $form['username'], $form['pass']);
@@ -38,6 +42,38 @@ class AdminController {
         \App\Session::flash_message('success', 'New user with username ' . e($form['username']) . ' was successfully created !');
 
         return new RedirectResponse(ADMIN_PART . '/panel');
+    }
+
+    public function delegate_verify($email, $username, $password) {
+        if (empty($email) || empty($username) || empty($password)) {
+            return new HtmlResponse(\give_render('admin/new_user', ['error' => 'You must fill in all the fields']));
+        }
+
+        $username_pattern = '/[^a-aA-Z0-9.\-_]/mi';
+        
+        // email
+        $is_email_available = \App\Database::getUserWithEmail($email);
+
+        if (!empty($is_email_available)) {
+            return self::render_form(NOT_AVAILABLE_EMAIL);
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return self::render_form(INVALID_EMAIL);
+        }
+
+        // username
+        if ($old_username != $username) {
+            $is_username_available = \App\Database::getUserWithUsername($username);
+            if (!empty($is_username_available)) {
+                return self::render_form(NOT_AVAILABLE_USERNAME);
+            }
+            if (preg_match($username_pattern, $username)) {
+                return self::render_form(INVALID_USERNAME);
+            }
+        }
+
+        // everything is good
+        return null;
     }
 
 }
