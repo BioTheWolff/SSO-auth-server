@@ -35,6 +35,8 @@
                 </tbody>
             </table>
 
+            <a href="<?= ADMIN_PART ?>/new" class="btn">Create new user</a>
+
         <?php endif; ?>
 
     </div>

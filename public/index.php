@@ -46,6 +46,12 @@ $router->map('GET', USER_LOGOUT, 'App\Controllers\LoginController::logout');
 $router->group(ADMIN_PART, function (\League\Route\RouteGroup $route) {
     // Panel
     $route->map('GET', '/panel', 'App\Controllers\AdminController::adminPanel');
+    
+    // Create new user
+    $route->map('GET', '/new', 'App\Controllers\AdminController::newUser');
+    $route->map('POST', '/new', 'App\Controllers\AdminController::handleNewUser');
+
+
 })->middleware(new App\Middleware\AdminMiddleware);
 
 

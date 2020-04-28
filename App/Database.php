@@ -41,7 +41,7 @@ class Database {
     public static function getUserWithEmail(String $email) {
         $db = self::getInstance();
 
-        $email = \htmlspecialchars($email);
+        $email = e($email);
 
         $q = $db->prepare('SELECT * FROM accounts WHERE email = ?');
         $q->execute([$email]);
@@ -51,7 +51,7 @@ class Database {
     public static function getUserWithUsername(String $username) {
         $db = self::getInstance();
 
-        $username = \htmlspecialchars($username);
+        $username = e($username);
 
         $q = $db->prepare('SELECT * FROM accounts WHERE username = ?');
         $q->execute([$username]);
@@ -61,7 +61,7 @@ class Database {
     public static function getUserWithEither(String $eval) {
         $db = self::getInstance();
 
-        $eval = \htmlspecialchars($eval);
+        $eval = e($eval);
 
         $q = $db->prepare('SELECT * FROM accounts WHERE username = ? OR email = ?');
         $q->execute([$eval, $eval]);
@@ -71,8 +71,8 @@ class Database {
     public static function getUserFromFull(Int $id, String $email, String $username) {
         $db = self::getInstance();
 
-        $email = \htmlspecialchars($email);
-        $username = \htmlspecialchars($username);
+        $email = e($email);
+        $username = e($username);
 
         $q = $db->prepare('SELECT * FROM accounts WHERE id = ? AND email = ? AND username = ?');
         $q->execute([$id, $email, $username]);
@@ -85,8 +85,8 @@ class Database {
     public static function updateUserProfile($id, $new_email, $new_username): bool {
         $db = self::getInstance();
 
-        $email = \htmlspecialchars($new_email);
-        $username = \htmlspecialchars($new_username);
+        $email = e($new_email);
+        $username = e($new_username);
 
         $q = $db->prepare('UPDATE accounts SET email = ?, username = ? WHERE id = ?');
         $q->execute([
@@ -107,6 +107,25 @@ class Database {
             $hash,
             $id
             ]);
+        return $q->rowCount() > 0;
+    }
+
+    /**
+     * INSERT USER
+     */
+    public static function createUser($email, $username, $password): bool {
+        $db = self::getInstance();
+
+        $email = e($email);
+        $username = e($username);
+        $hash = \password_hash($password, PASSWORD_DEFAULT);
+
+        $q = $db->prepare('INSERT INTO accounts (email, username, password) VALUES (?, ?, ?)');
+        $q->execute([
+            $email,
+            $username,
+            $hash
+        ]);
         return $q->rowCount() > 0;
     }
 }
