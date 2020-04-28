@@ -11,7 +11,7 @@ use Laminas\Diactoros\Response\RedirectResponse;
 
 class AdminController {
 
-    public function render_form(String $error = '') : HtmlResponse {
+    private function render_form(String $error = '') : HtmlResponse {
         return new HtmlResponse(\give_render('admin/new_user', ['error' => $error]));
     }
 
@@ -44,7 +44,7 @@ class AdminController {
         return new RedirectResponse(ADMIN_PART . '/panel');
     }
 
-    public function delegate_verify($email, $username, $password) {
+    private function delegate_verify($email, $username, $password) {
         if (empty($email) || empty($username) || empty($password)) {
             return new HtmlResponse(\give_render('admin/new_user', ['error' => 'You must fill in all the fields']));
         }
