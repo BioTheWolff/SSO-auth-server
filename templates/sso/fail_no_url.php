@@ -1,4 +1,4 @@
-<?php $this->layout('template', ['title' => $this->e($title)]) ?>
+<?php $this->layout('template', ['title' => 'Auth error: No URL']) ?>
 
 <div class="columns">
 

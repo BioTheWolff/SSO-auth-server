@@ -8,14 +8,14 @@ A PHP-based SSO auth server built using
 
 
 # Installation
-The easiest way to install this is to clone the repository. (Assuming to be in the root directory in the list under)
+The easiest way to install this is to clone the repository. (Assuming to be in the root directory of the cloned repository in the list below)
 1. Run `composer install`
 2. Setup the database. As for now, there is only a process described in [create_env.sql](install/create_env.sql) (which can be customised and then run, or even run in CLI, that's your choice)
 3. Rename the config file (`mv /includes/config.example.php /includes/config.php`), then customise it. For that, you will need a few info:
     - Database information: system (mysql, psql, etc), hostname, database, table, username and finally password.
     - RSA keypair: You will need to generate a keypair (which can easily be done with openssl, by the way). Default is RSA, feel free to go into the `SSOController` to change algorithm
     - SSO server hostname: Basically, the URL your server will be at (i.e. `accounts.example.com`). Used as a verifier for brokers because it is used as an issuer claim in JWTs
-
+    - The accepted brokers into the SSO auth (you will understand just below what a broker is)
 
 
 # What is this designed for?
@@ -44,6 +44,7 @@ The page that will interest you the most is the SSO\_AUTH constant, which is by 
 Your return URL is the URL of the page that will handle the JWT token, i.e. `http://example.com/login`.
 
 You have to send it following the pattern `SSO_AUTH?url=RETURN_URL`, SSO\_AUTH and RETURN\_URL being both as mentioned above.
+You will __always__ recieve a `status` parameter, which can take `success` or `refused` as a value. Refused means you are not on the broker list, and accepted will give you the JWT as a parameter too
 You will then recieve the token in the `token` parameter in your RETURN\_URL.
 
 You now have to verify the JWT token, to be sure it was not modified during transport. The JWT being signed with a private key, you will need the public key, which you can store in your broker when you setup your config file. If you ever need it again, directly through GET requests, you can find it at SSO\_PUBKEY, which is `/pubkey` by default (it will be returned in body with a Content-Type of `text/plain`, making it easy for you to retrieve it).

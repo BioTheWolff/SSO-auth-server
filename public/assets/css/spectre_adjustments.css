@@ -42,4 +42,9 @@ table.table.headless tr:last-child td {
   border-bottom: none;
 }
 
+code {
+  background: #232222;
+  display: block;
+}
+
 /*# sourceMappingURL=spectre_adjustments.css.map */

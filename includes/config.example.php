@@ -18,3 +18,9 @@ define('PRIVATE_KEY', '');
 
 // Used in JWTs for the iss (issuer) claim to verify identity
 define('AUTH_SERVER_HOSTNAME', '');
+
+// Only brokers in this list will be accepted and get a JWT
+define('ACCEPTED_BROKERS', array(
+    'example.com',
+    'example.org'
+));

@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\TextResponse;
+use Laminas\Diactoros\Uri;
 use Firebase\JWT\JWT;
 
 class SSOController {
@@ -21,6 +22,18 @@ class SSOController {
         $res = \look_up_param($query, "url");
         if ($res === null) return new HtmlResponse(\give_render('sso/fail_no_url'), 400);
         
+        $return_uri = new Uri($res);
+
+        $scheme = $return_uri->getScheme();
+        $host = $return_uri->getHost();
+
+        if (empty($scheme) || empty($host)) {
+            return new HtmlResponse(\give_render('sso/fail_invalid_url'), 400);
+        }
+
+        if (\array_search($host, ACCEPTED_BROKERS) === false) {
+            return new RedirectResponse($res . '?status=refused');
+        }
 
         $payload = array(
             "iss" => AUTH_SERVER_HOSTNAME,
@@ -33,7 +46,7 @@ class SSOController {
         
         $jwt = JWT::encode($payload, PRIVATE_KEY, 'RS256');
 
-        return new RedirectResponse('http://' . $res . "?token=$jwt");
+        return new RedirectResponse($res . "?status=success&token=$jwt");
     }
 
 }
