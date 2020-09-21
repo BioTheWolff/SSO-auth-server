@@ -21,12 +21,20 @@ use function look_up_param;
 
 class SSOController {
 
-    // Giving the pubkey if the brokers want to verify the JWTs
+    /**
+     * Page to retrieve the pubkey (deactivated by default)
+     * @param ServerRequestInterface $request
+     * @return TextResponse
+     */
     public function givePubkey(ServerRequestInterface $request) : ResponseInterface {
         return new TextResponse(PUBLIC_KEY);
     }
 
-    // redirect to auth
+    /**
+     * Tries to create a JWT and redirects to the broker site
+     * @param ServerRequestInterface $request
+     * @return RedirectResponse
+     */
     public function handleRedirect(ServerRequestInterface $request) : ResponseInterface {
         $query = $request->getUri()->getQuery();
 
@@ -63,7 +71,11 @@ class SSOController {
         return new RedirectResponse($res . "?status=success&token=$jwt");
     }
 
-    // verify a JWT issued here
+    /**
+     * Verifies a JWT issued by this CAS
+     * @param ServerRequestInterface $request
+     * @return JsonResponse
+     */
     public function verifyToken(ServerRequestInterface $request) : ResponseInterface {
         $params = $request->getQueryParams();
         $token = null;

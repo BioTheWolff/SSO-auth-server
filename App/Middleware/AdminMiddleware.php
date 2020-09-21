@@ -30,7 +30,7 @@ class AdminMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        // If neither of above is true, we display a 403 error
+        // If one of the above is false, we display a 403 error
         return new HtmlResponse(
             give_render('http_error', ['error' => '403 Forbidden']),
             403

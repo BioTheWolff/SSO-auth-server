@@ -16,7 +16,11 @@ use function reconstruct_path_from_redirect_param;
 
 class LoginController {
 
-    // Index page (once connected)
+    /**
+     * Index page (you shouldn't normally land here)
+     * @param ServerRequestInterface $request
+     * @return HtmlResponse
+     */
     public function index(ServerRequestInterface  $request) : ResponseInterface {
         return new HtmlResponse(
             give_render('index'),
@@ -24,7 +28,11 @@ class LoginController {
         );
     }
 
-    // Login page in GET
+    /**
+     * Login page (GET)
+     * @param ServerRequestInterface $request
+     * @return RedirectResponse|HtmlResponse
+     */
     public function renderLoginForm(ServerRequestInterface $request) : ResponseInterface {
         // If the user is already connected, handle the request instead of asking to connect!
         if (Session::is_connected()) return self::delegate_handle_uri_params($request->getUri()->getQuery());
@@ -32,13 +40,21 @@ class LoginController {
         return self::render_login_page();
     }
 
-    // Logout
+    /**
+     * Logout
+     * @param ServerRequestInterface $request
+     * @return RedirectResponse
+     */
     public function logout(ServerRequestInterface $request) : ResponseInterface {
         Session::disconnect();
         return new RedirectResponse(USER_LOGIN);
     }
 
-    // Login page in POST
+    /**
+     * Login page (POST)
+     * @param ServerRequestInterface $request
+     * @return HtmlResponse|RedirectResponse
+     */
     public function verifyLogin(ServerRequestInterface $request) : ResponseInterface {
         $form = $request->getParsedBody();
 
@@ -58,6 +74,12 @@ class LoginController {
     }
 
     // Helpers below
+
+    /**
+     * Renders the login page with errors if there are any
+     * @param string $error
+     * @return HtmlResponse
+     */
     private function render_login_page($error = '') {
 
         return new HtmlResponse(
@@ -66,6 +88,12 @@ class LoginController {
         );
     }
 
+    /**
+     * Verifies everything with the database to see if we can connect the user
+     * @param $email
+     * @param $pass
+     * @return array
+     */
     private function delegate_verify_in_database($email, $pass) {
         $query = Database::getUserWithEither($email);
 
@@ -87,6 +115,11 @@ class LoginController {
         return [$query, null];
     }
 
+    /**
+     * Handles and reconstructs the query from URI params, and creates a redirect response from that base.
+     * @param $query
+     * @return RedirectResponse
+     */
     private function delegate_handle_uri_params($query) {
 
         [$res, $had_to_fallback] = reconstruct_path_from_redirect_param($query, '/', true);

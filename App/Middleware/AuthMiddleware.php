@@ -25,6 +25,7 @@ class AuthMiddleware implements MiddlewareInterface
     {
 
         $uri = $request->getUri();
+
         /**
          * If the user is connection ($_SESSION['__user'] is not null)
          * or if the URI path is considered public (see array)
@@ -32,9 +33,13 @@ class AuthMiddleware implements MiddlewareInterface
         $public_paths = array(USER_LOGIN, SSO_PUBKEY, SSO_VERIFY);
 
         if(Session::is_connected() || in_array($uri->getPath(), $public_paths)) {
+            // Handle the request
             return $handler->handle($request);
         }
 
+        /**
+         * If the user is not connected and the path is not public
+         */
         // compile the uri and put it in parameters
         if ($uri->getQuery() == '') {
             $params = '';
@@ -45,7 +50,7 @@ class AuthMiddleware implements MiddlewareInterface
             $params = '?redirect=' . $uri->getQuery();
         }
 
-        // If neither of above is true, we redirect the user to the login page (which will be handled above)
+        // we redirect the user to the login page (which will be handled above)
         return new RedirectResponse(USER_LOGIN . $params);
     }
 }
