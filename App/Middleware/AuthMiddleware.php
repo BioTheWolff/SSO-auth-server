@@ -30,7 +30,7 @@ class AuthMiddleware implements MiddlewareInterface
          * If the user is connection ($_SESSION['__user'] is not null)
          * or if the URI path is considered public (see array)
          */
-        $public_paths = array(USER_LOGIN, SSO_PUBKEY, SSO_VERIFY);
+        $public_paths = array(USER_LOGIN, CAS_PUBKEY, CAS_VERIFY);
 
         if(Session::is_connected() || in_array($uri->getPath(), $public_paths)) {
             // Handle the request

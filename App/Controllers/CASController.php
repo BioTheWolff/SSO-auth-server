@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+require_once(dirname(__DIR__) . '/../includes/init.php');
+
 use App\Session;
 use Firebase\JWT\BeforeValidException;
 use Firebase\JWT\ExpiredException;
@@ -19,7 +21,7 @@ use function array_search;
 use function give_render;
 use function look_up_param;
 
-class SSOController {
+class CASController {
 
     /**
      * Page to retrieve the pubkey (deactivated by default)
@@ -81,8 +83,8 @@ class SSOController {
         $token = null;
         $flag = false;
 
-        if (in_array(SSO_VERIFY . '?token', array_keys($params))) {
-            $token = $params[SSO_VERIFY . '?token'];
+        if (in_array(CAS_VERIFY . '?token', array_keys($params))) {
+            $token = $params[CAS_VERIFY . '?token'];
             $flag = true;
         } else if (in_array('?token', array_keys($params))) {
             $token = $params['?token'];

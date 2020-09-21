@@ -31,10 +31,10 @@ $router->map('GET', '/', 'App\Controllers\LoginController::index');
 
 // CAS-related (verify token, redirect to broker)
 if (ALLOW_PUBKEY_ROUTE == true) {
-    $router->map('GET', SSO_PUBKEY, 'App\Controllers\SSOController::givePubkey');
+    $router->map('GET', CAS_PUBKEY, 'App\Controllers\CASController::givePubkey');
 }
-$router->map('GET', SSO_VERIFY, 'App\Controllers\SSOController::verifyToken');
-$router->map('GET', SSO_AUTH, 'App\Controllers\SSOController::handleRedirect');
+$router->map('GET', CAS_VERIFY, 'App\Controllers\CASController::verifyToken');
+$router->map('GET', CAS_AUTH, 'App\Controllers\CASController::handleRedirect');
 
 // Log-in/out
 $router->map('GET', USER_LOGIN, 'App\Controllers\LoginController::renderLoginForm');

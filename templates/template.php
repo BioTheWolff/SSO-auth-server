@@ -11,8 +11,8 @@
 
 <header class="navbar">
     <section class="navbar-section">
-        <!-- Main page of SSO auth server -->
-        <a href="/" class="btn btn-link">SSO Auth server</a>
+        <!-- Main page of the CAS auth server -->
+        <a href="/" class="btn btn-link">CAS</a>
     </section>
     <section class="navbar-center">
         <!-- You can put a link to your main website here (say you have accounts.example.com, you could point to example.com here) -->

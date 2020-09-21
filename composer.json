@@ -1,12 +1,12 @@
 {
-    "name": "biowolf/sso-auth-server",
-    "description": "A PHP-based SSO auth server",
+    "name": "biowolf/php-cas",
+    "description": "A PHP CAS server",
     "type": "project",
     "license": "MIT",
     "authors": [
         {
-            "name": "BioWolf",
-            "email": "contact.biowolf@gmx.fr"
+            "name": "Fabien 'BioTheWolff' Zoccola",
+            "email": "biothewolff@gmx.fr"
         }
     ],
     "minimum-stability": "stable",
