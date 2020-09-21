@@ -10,7 +10,7 @@
         <p class="text-warning">
             The redirection failed because the redirect URL was not constructed the right way.<br>
             Return URLs must be of form <code>&lthttp|https&gt://&ltdomain name&gt/[optional path]</code><br>
-            Please contact the administrator of the broker site that redirected you here.
+            Please contact the administrator of the site that redirected you here.
         </p>
     </div>
 

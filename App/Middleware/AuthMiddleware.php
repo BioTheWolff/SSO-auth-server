@@ -2,11 +2,15 @@
 
 namespace App\Middleware;
 
+use App\Session;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Laminas\Diactoros\Response\RedirectResponse;
+use function explode;
+use function implode;
+use function in_array;
 
 /**
  * This middleware protects the whole site with a login requirement.
@@ -25,9 +29,9 @@ class AuthMiddleware implements MiddlewareInterface
          * If the user is connection ($_SESSION['__user'] is not null)
          * or if the URI path is considered public (see array)
          */
-        $public_paths = array(USER_LOGIN, SSO_PUBKEY);
+        $public_paths = array(USER_LOGIN, SSO_PUBKEY, SSO_VERIFY);
 
-        if(\App\Session::is_connected() || \in_array($uri->getPath(), $public_paths)) {
+        if(Session::is_connected() || in_array($uri->getPath(), $public_paths)) {
             return $handler->handle($request);
         }
 
@@ -35,8 +39,8 @@ class AuthMiddleware implements MiddlewareInterface
         if ($uri->getQuery() == '') {
             $params = '';
         } else if (strpos($uri->getQuery(), '?') !== false) {
-            $arr = \explode("?", $uri->getQuery());
-            $params = '?redirect=' . \implode("&", $arr);
+            $arr = explode("?", $uri->getQuery());
+            $params = '?redirect=' . implode("&", $arr);
         } else {
             $params = '?redirect=' . $uri->getQuery();
         }

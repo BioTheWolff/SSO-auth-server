@@ -1,5 +1,8 @@
 <?php
 
+// ERRORS
+
+define('ERROR_FILL_ALL_FIELDS', 'You must fill in the two fields');
 define('ERROR_DATABASE', 'An error occurred during database communication. If the problem reoccurs, please try again later.');
 define('ERROR_CREDENTIALS', 'Incorrect email or password.');
 
@@ -14,11 +17,11 @@ define('NEW_PASSWORDS_DONT_MATCH', 'New passwords do not match. Please retry');
 
 // ROUTES
 
-define('USER_LOGIN', '/user/login');
-define('USER_LOGOUT', '/user/logout');
-define('USER_PROFILE', '/user/profile');
+define('USER_LOGIN', '/login');
+define('USER_LOGOUT', '/logout');
 
 define('ADMIN_PART', '/admin');
 
 define('SSO_AUTH', '/auth');
 define('SSO_PUBKEY', '/pubkey');
+define('SSO_VERIFY', '/verify');

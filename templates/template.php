@@ -26,10 +26,6 @@
         <?php if (\App\Session::is_user_admin()): ?>
             <a href="<?= ADMIN_PART ?>/panel" class="btn">Admin panel</a>
         <?php endif; ?>
-
-        <?php if (\App\Session::is_connected()): ?>
-            <a href="<?= USER_LOGOUT ?>" class="btn">Log out</a>
-        <?php endif; ?>
     </section>
 </header>
 

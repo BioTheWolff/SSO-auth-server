@@ -5,7 +5,7 @@
     <div class="column col-4"></div>
 
 
-    <!-- Login cplumn -->
+    <!-- Login column -->
     <div class="column col-4 login">
 
         <form class="form-group" method="POST">

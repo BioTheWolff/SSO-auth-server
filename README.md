@@ -13,7 +13,7 @@ The easiest way to install this is to clone the repository. (Assuming to be in t
 2. Setup the database. As for now, there is only a process described in [create_env.sql](install/create_env.sql) (which can be customised and then run, or even run in CLI, that's your choice)
 3. Rename the config file (`mv /includes/config.example.php /includes/config.php`), then customise it. For that, you will need a few info:
     - Database information: system (mysql, psql, etc), hostname, database, table, username and finally password.
-    - RSA keypair: You will need to generate a keypair (which can easily be done with openssl, by the way). Default is RSA, feel free to go into the `SSOController` to change algorithm
+    - A keypair: You will need to generate a keypair (which can easily be done with openssl, by the way). Default is ES256 (ECDSA 256), feel free to to change the algorithm in the config file
     - SSO server hostname: Basically, the URL your server will be at (i.e. `accounts.example.com`). Used as a verifier for brokers because it is used as an issuer claim in JWTs
     - The accepted brokers into the SSO auth (you will understand just below what a broker is)
 
@@ -25,7 +25,7 @@ Now, the server itself. It is created and built to be used as a small SSO server
 # How is it designed? How does it work?
 
 ## What it does not do
-This SSO authentication is what I call "desynchronised". By that, it does not implement any update on the user information at each page reload or anything like that. Which means if the user updates his profile, it will only be updated with the next JWT you get. For now, I don't have an easy way to do this.
+This SSO authentication is what I call "asynchrone". By that, it does not implement any update on the user information at each page reload or anything like that. Which means if the user updates his profile, it will only be updated with the next JWT you get. For now, I don't have an easy way to do this.
 Also, it does not implement SLO (Single Log-Out) at all (for now at least, I hope to include that later).
 
 ## The SSO server 
