@@ -21,7 +21,7 @@ use function array_search;
 use function give_render;
 use function look_up_param;
 
-class CASController {
+class SSOController {
 
     /**
      * Page to retrieve the pubkey (deactivated by default)
@@ -74,7 +74,7 @@ class CASController {
     }
 
     /**
-     * Verifies a JWT issued by this CAS
+     * Verifies a JWT issued by this Auth server
      * @param ServerRequestInterface $request
      * @return JsonResponse
      */
@@ -83,8 +83,8 @@ class CASController {
         $token = null;
         $flag = false;
 
-        if (in_array(CAS_VERIFY . '?token', array_keys($params))) {
-            $token = $params[CAS_VERIFY . '?token'];
+        if (in_array(SSO_VERIFY . '?token', array_keys($params))) {
+            $token = $params[SSO_VERIFY . '?token'];
             $flag = true;
         } else if (in_array('?token', array_keys($params))) {
             $token = $params['?token'];

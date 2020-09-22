@@ -22,6 +22,6 @@ define('USER_LOGOUT', '/logout');
 
 define('ADMIN_PART', '/admin');
 
-define('CAS_AUTH', '/auth');
-define('CAS_PUBKEY', '/pubkey');
-define('CAS_VERIFY', '/verify');
+define('SSO_AUTH', '/auth');
+define('SSO_PUBKEY', '/pubkey');
+define('SSO_VERIFY', '/verify');
