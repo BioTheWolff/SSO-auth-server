@@ -11,8 +11,8 @@
 
 <header class="navbar">
     <section class="navbar-section">
-        <!-- Main page of SSO auth server -->
-        <a href="/" class="btn btn-link">SSO Auth server</a>
+        <!-- Main page of the SSO auth server -->
+        <a href="/" class="btn btn-link">SSO auth server</a>
     </section>
     <section class="navbar-center">
         <!-- You can put a link to your main website here (say you have accounts.example.com, you could point to example.com here) -->
@@ -25,10 +25,6 @@
 
         <?php if (\App\Session::is_user_admin()): ?>
             <a href="<?= ADMIN_PART ?>/panel" class="btn">Admin panel</a>
-        <?php endif; ?>
-
-        <?php if (\App\Session::is_connected()): ?>
-            <a href="<?= USER_LOGOUT ?>" class="btn">Log out</a>
         <?php endif; ?>
     </section>
 </header>

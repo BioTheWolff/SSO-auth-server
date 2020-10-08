@@ -4,3 +4,9 @@ composer.phar
 
 # config
 /includes/config.php
+
+# all unininteresting files
+/keygen/
+/resources/sidelined/
+
+.idea/

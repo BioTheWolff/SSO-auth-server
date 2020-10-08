@@ -2,6 +2,8 @@
 
 namespace App\Strategies;
 
+use Laminas\Diactoros\Response\HtmlResponse;
+use League\Plates\Engine;
 use League\Route\Http\Exception\{MethodNotAllowedException, NotFoundException};
 use League\Route\Route;
 use League\Route\Strategy\AbstractStrategy;
@@ -50,7 +52,9 @@ class FancyStrategy extends AbstractStrategy implements ContainerAwareInterface
     /**
      * Return a middleware that simply throws an error
      *
-     * @return \Psr\Http\Server\MiddlewareInterface
+     * @param Int $code
+     * @param String $title
+     * @return MiddlewareInterface
      */
     protected function returnFancyErrorMiddleware(Int $code, String $title): MiddlewareInterface
     {
@@ -66,14 +70,12 @@ class FancyStrategy extends AbstractStrategy implements ContainerAwareInterface
             }
 
             public function process(ServerRequestInterface $request, RequestHandlerInterface $requestHandler) : ResponseInterface {
-                $templates = new \League\Plates\Engine(dirname(__DIR__) . '/../templates/');
+                $templates = new Engine(dirname(__DIR__) . '/../templates/');
 
-                $response = new \Laminas\Diactoros\Response\HtmlResponse(
+                return new HtmlResponse(
                     $templates->render('http_error', ['title' => $this->title]),
-                    $this->code
+                    (int)$this->code
                 );
-
-                return $response;
             }
         };
     }
